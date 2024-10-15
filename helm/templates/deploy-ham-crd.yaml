@@ -1,0 +1,11 @@
+apiVersion: "accel.example.com/v1"
+kind: hamconfig
+metadata:
+  name: hamconfig
+  namespace: {{ .Values.ham.customResource.namespace }}
+
+spec:
+  aalHam: {}
+  
+status:
+  aalHam: {}

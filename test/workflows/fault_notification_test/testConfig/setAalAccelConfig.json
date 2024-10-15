@@ -1,0 +1,32 @@
+{
+    "hw_accel_list": [
+        {
+            "hw_accel_id": "test-id-1234",
+            "hw_accel_image_version": "1.0",
+            "hw_accel_image_location": "accel.example.com",
+            "hw_accel_vendor_specific": [],
+            "num_aal_lpus_configured": 1,
+            "lpu_type": "Mixed",
+            "aal_lpu_list":[{
+                "aal_lpu_id": "test-id-5678",
+                "aal_lpu_handle": "test-handle-5678",
+                "aal_lpu_image_version": "0.1.0",
+                "aal_lpu_image_location": "aal.example.com",
+                "aal_lpu_profile_list": [{
+                    "aal_lpu_profile_name": "profile1",
+                    "aal_lpu_profile_version": "0.1.0",
+                    "aal_lpu_profile_image_version": "1.0",
+                    "aal_lpu_profile_image_location": "profile1.example.com",
+                    "aal_lpu_profile_attributes": [],
+                    "aal_lpu_profile_vendor_specific": []
+                    }],
+                "aal_lpu_config": {
+                    "aal_lpu_memory": 12,
+                    "aal_lpu_multiprocessors_num": 2,
+                    "aal_lpu_compute_slices_num": 3,
+                    "aal_lpu_vendor_specific": []
+                    }
+                }]
+        }
+    ]
+}

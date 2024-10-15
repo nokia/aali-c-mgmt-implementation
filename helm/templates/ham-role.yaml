@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ham-reader
+  namespace: {{ .Values.ham.customResource.namespace }}
+rules:
+- apiGroups: [ {{ .Values.ham.customResource.group }} ]
+  resources: [ {{ .Values.ham.customResource.pluralName }}/status, {{ .Values.ham.customResource.pluralName }} ]
+  verbs: 
+  {{- range .Values.ham.customResource.verbs }}
+  - {{ . }} {{- end }}

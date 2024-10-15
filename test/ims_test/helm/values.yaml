@@ -1,0 +1,10 @@
+
+image:
+  repository: localhost
+  name: o-ran-ims
+  pullPolicy: Never
+  tag: "latest"
+
+svc:
+  ims:
+    name: "o-ran-ims-svc"

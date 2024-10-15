@@ -1,0 +1,24 @@
+namespace: default
+
+image:
+  repository: localhost
+  name: accelclusterconfig-controller
+  pullPolicy: Never
+  tag: "latest"
+
+accelerator:
+  customResource:
+    version: "v1"
+    namespace: "default"
+    name: "accelclusterconfig"
+    pluralName: "accelclusterconfigs"
+    group: "accel.example.com"
+    
+ham:
+  customResource:
+    version: "v1"
+    namespace: "default"
+    name: "hamconfig"
+    pluralName: "hamconfigs"
+    group: "accel.example.com"
+    verbs: ["get", "watch", "list", "patch"]

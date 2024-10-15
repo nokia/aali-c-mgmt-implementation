@@ -1,0 +1,8 @@
+apiVersion: "accel.example.com/v1"
+kind: accelclusterconfig
+metadata:
+  name: accelclusterconfig
+spec:
+  accelOperation:
+  configuration:
+    hwAccelList: []

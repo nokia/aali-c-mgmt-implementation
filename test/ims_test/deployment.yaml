@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: o-ran-ims-deployment
+spec:
+  selector:
+    matchLabels:
+      app: o-ran-ims
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: o-ran-ims
+    spec:
+      containers:
+        - name: o-ran-ims
+          image: o-ran-ims:latest
+          imagePullPolicy: Never
+          ports:
+          - containerPort: 5000

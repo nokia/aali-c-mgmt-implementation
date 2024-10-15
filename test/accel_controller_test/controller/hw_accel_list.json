@@ -1,0 +1,95 @@
+{
+  "hwAccelList": [
+    {
+      "hwAccelId": "Unknown",
+      "vendorName": "my-company",
+      "model": "Model123",
+      "serialNum": "Num1234",
+      "numAalLpusConfigured": 1,
+      "aalProfileTemplates": [
+        {
+          "name": "FEC",
+          "version": "0.1.0",
+          "imageVersion": "0.1.0",
+          "attributes": [],
+          "extensions": [],
+          "capabilities": []
+        }
+      ],
+      "lpuType": "Mixed",
+      "imageVersion": "0.1.0",
+      "imageLocation": "my-repo.com",
+      "aalLpu": [
+        {
+          "aalLpuId": "lpu-id-1234",
+          "aalLpuHandle": "lpu-handle-1234",
+          "imageVersion": "0.1.0",
+          "imageLocation": "my-repo.com",
+          "supportedAalProfiles": [
+            {
+              "name": "FEC",
+              "version": "0.1.0",
+              "imageVersion": "0.1.0",
+              "imageLocation": "my-repo.com",
+              "attributes": [],
+              "extensions": []
+            }
+          
+          ],
+          "aalLpuConfig": {
+            "memory": 100,
+            "multiprocessorNum": 1,
+            "computeSlicesNum": 1,
+            "extensions": []
+          }
+        }
+      ],
+      "extensions": []
+    },
+    {
+      "hwAccelId": "Unknown",
+      "vendorName": "my-company",
+      "model": "Model123",
+      "serialNum": "Num5678",
+      "numAalLpusConfigured": 1,
+      "aalProfileTemplates": [
+        {
+          "name": "FEC",
+          "version": "0.1.0",
+          "imageVersion": "0.1.0",
+          "attributes": [],
+          "extensions": [],
+          "capabilities": []
+        }
+      ],
+      "lpuType": "Mixed",
+      "imageVersion": "0.1.0",
+      "imageLocation": "my-repo.com",
+      "aalLpu": [
+        {
+          "aalLpuId": "lpu-id-5678",
+          "aalLpuHandle": "lpu-handle-5678",
+          "imageVersion": "0.1.0",
+          "imageLocation": "my-repo.com",
+          "supportedAalProfiles": [
+            {
+              "name": "FEC",
+              "version": "0.1.0",
+              "imageVersion": "0.1.0",
+              "imageLocation": "my-repo.com",
+              "attributes": [],
+              "extensions": []
+            }
+          ],
+          "aalLpuConfig": {
+            "memory": 100,
+            "multiprocessorNum": 1,
+            "computeSlicesNum": 1,
+            "extensions": []
+          }
+        }
+      ],
+      "extensions": []
+    }
+  ]
+}

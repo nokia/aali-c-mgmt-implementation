@@ -1,0 +1,63 @@
+{
+  "hw_accel_list": [
+      {
+          "hw_accel_id": "test-id-1234",
+          "hw_accel_image_version": "",
+          "hw_accel_image_location": "vfio-pci",
+          "hw_accel_vendor_specific": [
+            {
+              "bbDevConfig": {
+                "acc200": {
+                  "downlink4G": {
+                    "aqDepthLog2": 4,
+                    "numAqsPerGroups": 16,
+                    "numQueueGroups": 4
+                  },
+                  "downlink5G": {
+                    "aqDepthLog2": 4,
+                    "numAqsPerGroups": 16,
+                    "numQueueGroups": 0
+                  },
+                  "maxQueueSize": 1024,
+                  "numVfBundles": 2,
+                  "pfMode": false,
+                  "qfft": {
+                    "aqDepthLog2": 4,
+                    "numAqsPerGroups": 16,
+                    "numQueueGroups": 4
+                  },
+                  "uplink4G": {
+                    "aqDepthLog2": 4,
+                    "numAqsPerGroups": 16,
+                    "numQueueGroups": 4
+                  },
+                  "uplink5G": {
+                    "aqDepthLog2": 4,
+                    "numAqsPerGroups": 16,
+                    "numQueueGroups": 0
+                  }
+                }
+              },
+              "node": "cxlex",
+              "pciAddress": "0000:f7:00.0"
+            }
+          ],
+          "num_aal_lpus_configured": 2,
+          "lpu_type": "Single",
+          "aal_lpu_list":[{
+              "aal_lpu_handle": "",
+              "aal_lpu_image_version": "",
+              "aal_lpu_image_location": "vfio-pci",
+              "aal_lpu_profile_list": [{
+                  "aal_lpu_profile_name": "",
+                  "aal_lpu_profile_version": "",
+                  "aal_lpu_profile_image_version": "",
+                  "aal_lpu_profile_image_location": "",
+                  "aal_lpu_profile_attributes": [],
+                  "aal_lpu_profile_vendor_specific": []
+                  }],
+              "aal_lpu_config": {}
+              }]
+      }
+  ]
+}

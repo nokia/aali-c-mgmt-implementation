@@ -1,0 +1,386 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: accelclusterconfigs.accel.example.com
+spec:
+  group: accel.example.com
+  scope: Namespaced
+  names:
+    plural: accelclusterconfigs
+    singular: accelclusterconfig
+    kind: accelclusterconfig
+    shortNames:
+    - acc
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      subresources:
+        status: {}
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                accelOperation:
+                  description: Functional operation on HW-Accel(s) and/or AAL-LPU(s)
+                  enum:
+                    - STARTAALLPU
+                    - STOPAALLPU
+                    - SETAALACCELIDENTIFIER
+                    - SETAALACCELCONFIG
+                  type: string
+                hwAccelId:
+                  description: Unique Identification of the HW Accelerator in the O-Cloud
+                  type: string
+                aalLpuHandle:
+                  description: Uniquely identifies the AAL-LPU within the accelerator
+                  type: string
+                vendorName:
+                  description: Name of the Vendor/Provider of the resource, used for IDENTIFIERUPDATE
+                  type: string
+                model:
+                  description: Information about the model of the resource, used for IDENTIFIERUPDATE
+                  type: string
+                serialNum:
+                  description: Serial number of the specific resource, used for IDENTIFIERUPDATE
+                  type: string
+                configuration:
+                  description: Configuration of the HW-Accels and AAL-LPUs in the cluster
+                  type: object
+                  properties:
+                    hwAccelList:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          hwAccelId:
+                            description: Unique Identification of the HW Accelerator in the O-Cloud
+                            type: string
+                          imageVersion:
+                            description: The version for the image applied to the HW Accelerator. The parameter is associated with the HW Accelerator's resource type
+                            type: string
+                          imageLocation:
+                            description: Path / URI to the software/firmware image
+                            type: string
+                          extensions:
+                            description: Vendor specific attributes associated with the HW Accelerator
+                            type: array
+                            items:
+                              type: object
+                              additionalProperties: true
+                          numAalLpusConfigured:
+                            description: Number of LPU(s) configured
+                            type: integer
+                          lpuType:
+                            description: single/mixed, single=all LPUs are identical, mixed=non-identical LPUs
+                            enum:
+                              - Single
+                              - Mixed
+                            default: Mixed
+                            type: string
+                          imageVersion:
+                            description: The version for the image applied to the HW Accelerator
+                            type: string
+                          imageLocation:
+                            description: Path to the software/firmware image
+                            type: string
+                          extensions:
+                            description: The list of unspecified (not standardized) properties for the entity which are tailored by the vendor
+                            type: array
+                            x-kubernetes-preserve-unknown-fields: true
+                            items:
+                              type: object
+                          aalLpu:
+                            description: List of AAL-LPUs and their characteristics
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                aalLpuHandle:
+                                  description: Uniquely identifies the AAL-LPU within the accelerator
+                                  type: string
+                                imageVersion:
+                                  description: The version or generation for the image applied to the AAL-LPU
+                                  type: string
+                                imageLocation:
+                                  description: Path / URI to the software/firmware image
+                                  type: string
+                                status:
+                                  description: Set the status of the AAL-LPU
+                                  enum:
+                                    - START
+                                    - STOP
+                                  type: string
+                                supportedAalProfiles:
+                                  description: List of AAL-Profile(s) supported (Profile Name ID, Image)
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      name:
+                                        description: AAL Profile name 
+                                        type: string
+                                      version:
+                                        description: AAL Profile version for the associated AAL Profile name. The AAL Profile version is the version of the AAL Profile's approved specification
+                                        type: string
+                                      imageVersion:
+                                        description: Version of the AAL Profile image 
+                                        type: string
+                                      imageLocation:
+                                        description: Path / URI to the AAL Profile image 
+                                        type: string
+                                      attributes:
+                                        description: This parameter provides a list of configuration attributes for the AAL-Profiles that used for this AAL-LPU. The structure and format of the Value attribute is specified as part of the definition of the Key.
+                                        type: array
+                                        items:
+                                          type: object
+                                          additionalProperties: true
+                                      extensions:
+                                        description: This parameter provides a list of vendor specific attributes for the AAL-Profiles that used for this AAL-LPU. The structure and format of the Value attribute is specified as part of the definition of the Key
+                                        type: array
+                                        items:
+                                          type: object
+                                          additionalProperties: true
+                                aalLpuConfig:
+                                  description: Can be one or more parameters that define the AAL-LPU persona. Some of the parameters are listed below 
+                                  type: object
+                                  properties:
+                                    memory:
+                                      description: AAL-LPU memory
+                                      type: integer
+                                    multiprocessorNum:
+                                      description: Number of Multi-Processors per AAL-LPU
+                                      type: integer
+                                    computeSlicesNum:
+                                      description: Number of compute slices per AAL-LPU
+                                      type: integer
+                                    extensions:
+                                      description: The list of unspecified (not standardized) properties defined by vendors that  used for the configuration of the AAL-LPU.of the AAL-LPU.
+                                      type: array
+                                      items:
+                                        type: object
+                                        additionalProperties: true
+                                extensions:
+                                  description: Vendor specific AAL-LPU attribute
+                                  type: array
+                                  items:
+                                    type: object
+                                    additionalProperties: true
+            status:
+              type: object
+              properties:
+                hwAccelList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      faults:
+                        description: The list of current fault conditions
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            faultId:
+                              description: The identifier for the fault condition
+                              type: string
+                            detectedTime:
+                              description: The date and time the fault condition was last detected
+                              type: string
+                      hwAccelId:
+                        description: Unique Identification of the HW Accelerator in the O-Cloud
+                        type: string
+                      operationalState:
+                        description: The operational state of the HW Accelerator
+                        enum:
+                          - DISABLED
+                          - ENABLED
+                        default: DISABLED
+                        type: string
+                      operationalConditions:
+                        description: The operational conditions that support the operational state of the HW Accelerator
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties: true
+                      vendorName:
+                        description: Name of the Vendor/Provider of the resource
+                        type: string
+                      dateOfManufacture:
+                        description: Date of the manufacture of the resource
+                        type: string
+                      model:
+                        description: Information about the model of the resource
+                        type: string
+                      serialNum:
+                        description: Serial number of the specific resource
+                        type: string
+                      hwVersion:
+                        description: Version or generation of the resource
+                        type: string
+                      maxNumAalLpus:
+                        description: This parameter may be included if a HW Accelerator has an upper limit on AAL-LPUs it can support. Actual number of AAL-LPUs available at runtime may be lower based on resource usage, AAL-LPU SW used, and AAL-Profile SW and types instantiated on the AAL-LPU(s)
+                        type: integer
+                      aalProfileTemplates:
+                        description: This parameter provides a list of templates for the AAL-Profiles that is supported for this HW Accelerator. 
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              description: Name identifier of the AAL Profile template
+                              type: string
+                            version:
+                              description: Name identifier of the AAL Profile template
+                              type: string
+                            imageVersion:
+                              description: Name identifier of the AAL Profile template
+                              type: string
+                            attributes:
+                              description: The list of AAL-Profile attributes represented as key/value pairs
+                              type: array
+                              items:
+                                type: object
+                                additionalProperties: true
+                            extensions:
+                              description: The list of AAL-Profile unspecified (not standardized) capabilities and attributes represented as key/value pairs. The structure and format of the value attribute is specified as part of the definition of the key
+                              type: array
+                              items:
+                                type: object
+                                additionalProperties: true
+                            capabilities:
+                              description: The list of AAL-Profile specified capabilities represented as key/value pairs. The structure and format of the value attribute is specified as part of the definition of the key in the corresponding AAL Profile specification
+                              type: array
+                              items:
+                                type: object
+                                additionalProperties: true
+                      numAalLpusConfigured:
+                        description: Number of LPU(s) configured
+                        type: integer
+                      lpuType:
+                        description: single/mixed, single=all LPUs are identical, mixed=non-identical LPUs
+                        enum:
+                          - Single
+                          - Mixed
+                        default: Mixed
+                        type: string
+                      imageVersion:
+                        description: The version for the image applied to the HW Accelerator
+                        type: string
+                      imageLocation:
+                        description: Path to the software/firmware image
+                        type: string
+                      extensions:
+                        description: The list of unspecified (not standardized) properties for the entity which are tailored by the vendor
+                        type: array
+                        x-kubernetes-preserve-unknown-fields: true
+                        items:
+                          type: object
+                      aalLpu:
+                        description: List of AAL-LPUs and their characteristics
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            faults:
+                              description: The list of current fault conditions
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  faultId:
+                                    description: The identifier for the fault condition
+                                    type: string
+                                  detectedTime:
+                                    description: The date and time the fault condition was last detected
+                                    type: string
+                            aalLpuId:
+                              description: Uniquely identifies the AAL-LPU within the O-Cloud
+                              type: string
+                            aalLpuHandle:
+                              description: Uniquely identifies the AAL-LPU within the accelerator
+                              type: string
+                            administrativeState:
+                              description: The administrative state of the AAL-LPU
+                              type: string
+                            operationalState:
+                              description: The operational state of the AAL-LPU
+                              enum:
+                                - DISABLED
+                                - ENABLED
+                              default: DISABLED
+                              type: string
+                            status:
+                              description: The current status of the AAL-LPU
+                              enum:
+                                - STARTED
+                                - STOPPED
+                              type: string
+                            operationalConditions:
+                              description: The operational conditions that support the operational state of the AAL-LPU
+                              type: array
+                              items:
+                                type: string
+                            imageVersion:
+                              description: The version or generation for the image applied to the AAL-LPU
+                              type: string
+                            imageLocation:
+                              description: Path / URI to the software/firmware image
+                              type: string
+                            supportedAalProfiles:
+                              description: List of AAL-Profile(s) supported (Profile Name ID, Image)
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    description: AAL Profile name 
+                                    type: string
+                                  version:
+                                    description: AAL Profile version for the associated AAL Profile name. The AAL Profile version is the version of the AAL Profile's approved specification
+                                    type: string
+                                  imageVersion:
+                                    description: Version of the AAL Profile image 
+                                    type: string
+                                  imageLocation:
+                                    description: Path / URI to the AAL Profile image 
+                                    type: string
+                                  attributes:
+                                    description: This parameter provides a list of configuration attributes for the AAL-Profiles that used for this AAL-LPU. The structure and format of the Value attribute is specified as part of the definition of the Key.
+                                    type: array
+                                    items:
+                                      type: object
+                                      additionalProperties: true
+                                  extensions:
+                                    description: This parameter provides a list of vendor specific attributes for the AAL-Profiles that used for this AAL-LPU. The structure and format of the Value attribute is specified as part of the definition of the Key
+                                    type: array
+                                    items:
+                                      type: object
+                                      additionalProperties: true
+                            aalLpuConfig:
+                              description: Can be one or more parameters that define the AAL-LPU persona. Some of the parameters are listed below 
+                              type: object
+                              properties:
+                                memory:
+                                  description: AAL-LPU memory
+                                  type: integer
+                                multiprocessorNum:
+                                  description: Number of Multi-Processors per AAL-LPU
+                                  type: integer
+                                computeSlicesNum:
+                                  description: Number of compute slices per AAL-LPU
+                                  type: integer
+                                extensions:
+                                  description: The list of unspecified (not standardized) properties defined by vendors that used for the configuration of the AAL-LPU of the AAL-LPU.
+                                  type: array
+                                  items:
+                                    type: object
+                                    additionalProperties: true
+                            extensions:
+                              description: Vendor specific AAL-LPU attribute
+                              type: array
+                              items:
+                                type: object
+                                additionalProperties: true

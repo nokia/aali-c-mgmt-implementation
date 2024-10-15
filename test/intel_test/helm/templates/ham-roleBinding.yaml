@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ham-reader-binding-{{ .Values.namespace }}
+  namespace: {{ .Values.ham.customResource.namespace }}
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: {{ .Values.namespace }}
+roleRef:
+  kind: Role
+  name: ham-reader-{{ .Values.namespace }}
+  apiGroup: rbac.authorization.k8s.io

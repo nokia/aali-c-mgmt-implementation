@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: accel-reader
+  namespace: {{ .Values.accelerator.customResource.namespace }}
+rules:
+- apiGroups: [ {{ .Values.accelerator.customResource.group }} ]
+  resources: [ {{ .Values.accelerator.customResource.pluralName }}/status, {{ .Values.accelerator.customResource.pluralName }} ]
+  verbs: 
+  {{- range .Values.accelerator.customResource.verbs }}
+  - {{ . }} {{- end }}

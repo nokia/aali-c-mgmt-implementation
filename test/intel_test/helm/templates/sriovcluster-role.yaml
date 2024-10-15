@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: sriovcluster-reader
+  namespace: {{ .Values.sriovcluster.customResource.namespace }}
+rules:
+- apiGroups: [ {{ .Values.sriovcluster.customResource.group }} ]
+  resources: [ {{ .Values.sriovcluster.customResource.pluralName }}/status, {{ .Values.sriovcluster.customResource.pluralName }} ]
+  verbs: 
+  {{- range .Values.sriovcluster.customResource.verbs }}
+  - {{ . }} {{- end }}

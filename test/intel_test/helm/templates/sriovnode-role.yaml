@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: sriovnode-reader
+  namespace: {{ .Values.sriovnode.customResource.namespace }}
+rules:
+- apiGroups: [ {{ .Values.sriovnode.customResource.group }} ]
+  resources: [ {{ .Values.sriovnode.customResource.pluralName }}/status, {{ .Values.sriovnode.customResource.pluralName }} ]
+  verbs: 
+  {{- range .Values.sriovnode.customResource.verbs }}
+  - {{ . }} {{- end }}

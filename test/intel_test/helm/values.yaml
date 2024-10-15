@@ -1,0 +1,46 @@
+namespace: "vran-acceleration-operators"
+
+image:
+  repository: localhost
+  name: intel-accelclusterconfig-controller
+  pullPolicy: Never
+  tag: "latest"
+
+accelerator:
+  customResource:
+    version: "v1"
+    namespace: "default"
+    name: "accelclusterconfig"
+    kind: "accelclusterconfig"
+    pluralName: "accelclusterconfigs"
+    group: "accel.example.com"
+    verbs: ["get", "watch", "list", "patch", "create"]
+    
+sriovnode:
+  customResource:
+    version: "v2"
+    namespace: "vran-acceleration-operators"
+    pluralName: "sriovfecnodeconfigs"
+    group: "sriovfec.intel.com"
+    verbs: ["get", "watch", "list", "patch"]
+
+sriovcluster:
+  customResource:
+    version: "v2"
+    namespace: "vran-acceleration-operators"
+    pluralName: "sriovfecclusterconfigs"
+    group: "sriovfec.intel.com"
+    verbs: ["get", "watch", "list", "patch", "create"]
+
+
+logging:
+  directory: "/app/logs"
+
+ham:
+  customResource:
+    version: "v1"
+    namespace: "default"
+    name: "hamconfig"
+    pluralName: "hamconfigs"
+    group: "accel.example.com"
+    verbs: ["get", "watch", "list", "patch"]

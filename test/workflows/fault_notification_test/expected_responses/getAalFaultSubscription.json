@@ -1,0 +1,1 @@
+{"subscriptions":[{"subscription_id":"id1234","filter_criteria":"[{\"faultId\": \"TemperatureFault\", \"resourceType\": \"HW-Accel\", \"resourceId\": \"test-id-1234\"}]","status_of_operation":"success"}]}

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accelclusterconfig-controller-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: accelclusterconfig-controller
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: accelclusterconfig-controller
+    spec:
+      containers:
+        - name: accelclusterconfig-controller
+          image: {{ .Values.image.repository }}/{{ .Values.image.name}}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: MY_POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: ACCELCRD_VERSION
+            value: {{ .Values.accelerator.customResource.version }}
+          - name: ACCELCRD_NAMESPACE
+            value: {{ .Values.accelerator.customResource.namespace }}
+          - name: ACCELCRD_NAME
+            value: {{ .Values.accelerator.customResource.name }}
+          - name: ACCELCRD_NAME_PLURAL
+            value: {{ .Values.accelerator.customResource.pluralName }}
+          - name: ACCELCRD_GROUP
+            value: {{ .Values.accelerator.customResource.group }}
+          - name: ACCEL_DEVICE_LIST_NAME
+            value: {{ .Values.accelerator.customResource.accelDeviceListName }}
+          - name: HAMCRD_VERSION
+            value: {{ .Values.ham.customResource.version }}
+          - name: HAMCRD_NAMESPACE
+            value: {{ .Values.ham.customResource.namespace }}
+          - name: HAMCRD_NAME
+            value: {{ .Values.ham.customResource.name }}
+          - name: HAMCRD_NAME_PLURAL
+            value: {{ .Values.ham.customResource.pluralName }}
+          - name: HAMCRD_GROUP
+            value: {{ .Values.ham.customResource.group }}
